@@ -1,0 +1,18 @@
+.nav-menu{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: black;
+    height: 70px;
+    width: 60%;
+    margin: 0 auto;
+}
+.nav{
+    width: 100%;
+    background-color: black;
+}
+.nav-menu a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px
+}
