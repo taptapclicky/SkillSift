@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ProfessionalForm = ({ professionalName }) => {
   const [avatar, setAvatar] = useState("");
   const [review, setReview] = useState("");
   const [introduction, setIntroduction] = useState("");
   const [price, setPrice] = useState("");
-  const history = useHistory();
+  const Navigate = useNavigate();
 
   const handleAvatarChange = (event) => {
     setAvatar(event.target.value);
@@ -43,7 +43,7 @@ const ProfessionalForm = ({ professionalName }) => {
     .then(response => response.json())
     .then(data => {
       console.log(data);
-      history.push('/contact');
+      Navigate('/contact');
     })
     .catch((error) => {
       console.error('Error:', error);

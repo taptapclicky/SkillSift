@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-
+import React, { useState } from "react";
+import "../styles/signup.css";
 const ContactForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -8,68 +8,97 @@ const ContactForm = () => {
 
   const handleNameChange = (event) => {
     setName(event.target.value);
-  }
+  };
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
-  }
+  };
 
   const handlePhoneNumberChange = (event) => {
     setPhoneNumber(event.target.value);
-  }
+  };
 
   const handleMessageChange = (event) => {
     setMessage(event.target.value);
-  }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-  
-    fetch('http://need the server http for the file/contact', {
-      method: 'POST',
+
+    fetch("http://need the server http for the file/contact", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name,
         email,
         phoneNumber,
-        message
+        message,
       }),
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-  }
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 
   return (
-    <div>
+    <div className="form-container">
       <h1>Contact Us</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="contact-form">
         <label>
           Name:
-          <input type="text" value={name} onChange={handleNameChange} required/>
+          <input
+            type="text"
+            placeholder="Your Name"
+            class="form-field"
+            value={name}
+            onChange={handleNameChange}
+            required
+          />
         </label>
         <label>
           Email:
-          <input type="email" value={email} onChange={handleEmailChange} required/>
+          <input
+            type="email"
+            class="form-field"
+            placeholder="Your Email"
+            value={email}
+            onChange={handleEmailChange}
+            required
+          />
         </label>
         <label>
           Phone Number:
-          <input type="tel" value={phoneNumber} onChange={handlePhoneNumberChange} required/>
+          <input
+            type="tel"
+            class="form-field"
+            placeholder="Your Mobile"
+            value={phoneNumber}
+            onChange={handlePhoneNumberChange}
+            required
+          />
         </label>
         <label>
           Message:
-          <textarea value={message} onChange={handleMessageChange} required/>
+          <textarea
+            class="form-field"
+            value={message}
+            placeholder="Your message"
+            onChange={handleMessageChange}
+            required
+          />
         </label>
-        <button type="submit">Send</button>
+        <button class="form-field" type="submit">
+          Send
+        </button>
       </form>
     </div>
   );
-}
+};
 
 export default ContactForm;
