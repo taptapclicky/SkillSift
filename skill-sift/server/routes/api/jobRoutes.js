@@ -8,10 +8,8 @@ const {
   
 } = require('../../controllers/jobController');
 
-// /api/videos
 router.route('/').get(getJob).post(createJob);
 
-// /api/videos/:videoId
 router
   .route('/:jobId')
   .get(getSingleJob)

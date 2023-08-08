@@ -14,12 +14,8 @@ const proSchema = new Schema({
         required: true,
         unique: true,
     },
-    serviceArea: {
+    location: {
         type: Location,
-        required: true,
-    },
-    bio: {
-        type: String,
         required: true,
     },
     reviews: [reviewsSchema],
