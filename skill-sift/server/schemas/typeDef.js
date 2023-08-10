@@ -1,11 +1,11 @@
-const { gql } = require('graphql');
+const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
     type User {
         _id: ID!
         name: String!
         username: String!
-        location: String!
+        location: Location!
         jobs: [Job]
     }
     
@@ -13,10 +13,15 @@ const typeDefs = gql`
         _id: ID!
         name: String!
         username: String!
-        location: String!
+        location: Location!
         jobs: [Job]
         skills: [Skill]
         reviews: [Review]
+    }
+
+    type Location {
+        city: String
+        country: String
     }
     
     type Skill {
@@ -27,51 +32,75 @@ const typeDefs = gql`
     type Review {
         reviewId: ID!
         content: String!
-        rating: Int!
-        user: ID
-        professional: ID
+        rating: Float!
+        user: User
+        professional: Professional
     }
     
     type Job {
         jobId: ID!
         type: String!
         description: String!
-        user: ID
+        user: User
     }
 
     type Auth {
         token: ID!
-        user: User || Professional
+        user: User
     }
 
     type Query {
         meUser: User
-        mePro: Professional
+        meProfessional: Professional
+        getProfessional(id: ID!): Professional
+        getAllProfessionals: [Professional]
+        getUser(id: ID!): User
+        getAllUsers: [User]
     }
 
     input SkillInput {
-        skillId: ID!
         skill: String!
     }
 
     input ReviewInput {
-        reviewId: ID!
         content: String!
-        rating: Int!
-        user: ID
-        professional: ID
+        rating: Float!
     }
 
     input JobInput {
-        jobId: ID!
         type: String!
         description: String!
-        user: ID
+    }
+
+    input UserInput {
+        name: String!
+        username: String!
+        location: LocationInput!
+    }
+
+    input ProfessionalInput {
+        name: String!
+        username: String!
+        location: LocationInput!
     }
 
     type Mutation {
-        createUser(username: String!, name: String!, password: String): Auth
-        createProfessional(username: String!, name: String!, password: String): Auth
-        saveJob()
+        createProfessional(
+            name: String!
+            username: String!
+            location: LocationInput!
+            reviews: [ReviewInput]
+            skills: [SkillInput]
+            jobs: [JobInput]
+        ): Professional
+        createUser(
+            name: String!
+            username: String!
+            location: LocationInput!
+            jobs: [JobInput]
+        ): User
+        addSkill(skill: SkillInput!): Skill
+        createJob(job: JobInput!): Job
+        postReview(professionalId: ID!, review: ReviewInput!): Review
     }
     `

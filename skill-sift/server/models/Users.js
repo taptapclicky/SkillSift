@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const jobsSchema = require('./Jobs');
+const locationSchema = require('./Location');
 
 const userSchema = new Schema({
     name: {
@@ -12,11 +13,8 @@ const userSchema = new Schema({
         required: true,
         unique: true,
     },
-    location: {
-        type: Location,
-        required: true,
-    },
     jobs: [jobsSchema],
+    location: locationSchema,
 });
 
 const User = model('User', userSchema);
