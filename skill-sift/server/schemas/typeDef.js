@@ -1,4 +1,4 @@
-const { gql } = require('epress');
+const { gql } = require('graphql');
 
 const typeDefs = gql`
     type User {
@@ -41,16 +41,17 @@ const typeDefs = gql`
 
     type Auth {
         token: ID!
-        user: User || professional: Professional
+        user: User || Professional
     }
 
     type Query {
-        me: User || Professional
+        meUser: User
+        mePro: Professional
     }
 
     input SkillInput {
         skillId: ID!
-        skill: String
+        skill: String!
     }
 
     input ReviewInput {
