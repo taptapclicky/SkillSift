@@ -84,6 +84,11 @@ const typeDefs = gql`
         location: LocationInput!
     }
 
+    input LocationInput {
+        city: String
+        country: String
+    }
+
     type Mutation {
         createProfessional(
             name: String!
@@ -103,4 +108,6 @@ const typeDefs = gql`
         createJob(job: JobInput!): Job
         postReview(professionalId: ID!, review: ReviewInput!): Review
     }
-    `
+`;
+
+module.exports = typeDefs;
