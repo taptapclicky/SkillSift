@@ -1,7 +1,4 @@
 const { Schema, model } = require('mongoose');
-const skillsSchema = require('./Skills');
-const reviewsSchema = require('./Reviews');
-const jobsSchema = require('./Jobs');
 
 const proSchema = new Schema({
     name: {
@@ -15,12 +12,33 @@ const proSchema = new Schema({
         unique: true,
     },
     location: {
-        type: Location,
-        required: true,
+        city: {
+            type: String,
+            required: true,
+        },
+        country: {
+            type: String,
+            required: true,
+        },
     },
-    reviews: [reviewsSchema],
-    skills: [skillsSchema],
-    jobs: [jobsSchema],
+    reviews: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Reviews'
+        },
+    ],
+    skills: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Skills'
+        },
+    ],
+    jobs: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Job',
+        },
+    ],
 });
 
 const Professional = model('Professional', proSchema);
