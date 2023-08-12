@@ -1,4 +1,16 @@
 import React, { useState } from 'react';
+import { useMutation, gql } from '@apollo/client';
+
+
+const ADD_REVIEW = gql`
+    mutation AddReview($professionalId: ID!, $rating: Int!, $comment: String!) {
+        addReview(professionalId: $professionalId, rating: $rating, comment: $comment) {
+            _id
+            rating
+            comment
+        }
+    }
+`;
 
 const ReviewForm = ({ professionalId }) => {
   const [rating, setRating] = useState(1);
@@ -12,26 +24,21 @@ const ReviewForm = ({ professionalId }) => {
     setComment(event.target.value);
   }
 
+  const [addReview, { loading, error }] = useMutation(ADD_REVIEW, {
+    onCompleted: (data) => {
+      console.log(data);
+    }
+  });
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    fetch('http://need website http /review', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    addReview({
+      variables: {
         professionalId,
-        rating,
+        rating: parseInt(rating),
         comment
-      }),
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
+      }
     });
   }
 
@@ -49,6 +56,7 @@ const ReviewForm = ({ professionalId }) => {
         </label>
         <button type="submit">Submit Review</button>
       </form>
+      {error && <p>Error: {error.message}</p>}
     </div>
   );
 }

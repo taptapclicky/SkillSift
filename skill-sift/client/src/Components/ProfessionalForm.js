@@ -1,5 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useMutation, gql } from '@apollo/client';
+
+
+const CREATE_PROFESSIONAL = gql`
+  mutation CreateProfessional($name: String!, $avatar: String!, $review: String!, $introduction: String!, $price: Int!) {
+    createProfessional(name: $name, avatar: $avatar, review: $review, introduction: $introduction, price: $price) {
+      id
+      name
+      // Add other fields you might want to return after the mutation completes
+    }
+  }
+`;
 
 const ProfessionalForm = ({ professionalName }) => {
   const [avatar, setAvatar] = useState("");
@@ -7,6 +19,8 @@ const ProfessionalForm = ({ professionalName }) => {
   const [introduction, setIntroduction] = useState("");
   const [price, setPrice] = useState("");
   const Navigate = useNavigate();
+
+  const [createProfessional, { loading, error }] = useMutation(CREATE_PROFESSIONAL);
 
   const handleAvatarChange = (event) => {
     setAvatar(event.target.value);
@@ -24,31 +38,30 @@ const ProfessionalForm = ({ professionalName }) => {
     setPrice(event.target.value);
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    fetch('http://need http of the website/professional', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: professionalName,
-        avatar,
-        review,
-        introduction,
-        price
-      }),
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
+    try {
+      const response = await createProfessional({
+        variables: {
+          name: professionalName,
+          avatar,
+          review,
+          introduction,
+          price: parseInt(price, 10) 
+        }
+      });
+
+      console.log(response.data);
       Navigate('/contact');
-    })
-    .catch((error) => {
+    } catch (error) {
       console.error('Error:', error);
-    });
+    }
   }
+
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <div>

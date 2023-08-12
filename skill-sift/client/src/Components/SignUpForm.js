@@ -1,5 +1,16 @@
 import "../styles/signup.css";
 import React, { useState } from "react";
+import { useMutation, gql } from '@apollo/client';
+
+const REGISTER_USER = gql`
+    mutation register($firstName: String!, $lastName: String!, $email: String!, $password: String!, $role: String!) {
+        register(firstName: $firstName, lastName: $lastName, email: $email, password: $password, role: $role) {
+            _id
+            email
+            role
+        }
+    }
+`;
 
 export default function SignUpForm() {
   const [values, setValues] = useState({
@@ -7,12 +18,10 @@ export default function SignUpForm() {
     lastName: "",
     email: "",
     password: "",
-    role: "user" // default to "user"
+    role: "user"
   });
 
   const handleInputChange = (event) => {
-    event.preventDefault();
-
     const { name, value } = event.target;
     setValues((prevValues) => ({
       ...prevValues,
@@ -22,13 +31,36 @@ export default function SignUpForm() {
 
   const [submitted, setSubmitted] = useState(false);
   const [valid, setValid] = useState(false);
+  
+  const [errorMessage, setErrorMessage] = useState(""); 
+
+  const [registerUser, { loading }] = useMutation(REGISTER_USER, {
+      onError: (error) => {
+          setErrorMessage(error.message);
+      },
+      onCompleted: (data) => {
+          console.log(data);
+          setValid(true);
+          setSubmitted(true);
+      }
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (values.firstName && values.lastName && values.email && values.password) {
-      setValid(true);
+      registerUser({
+        variables: {
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.email,
+          password: values.password,
+          role: values.role
+        }
+      });
+    } else {
+      setSubmitted(true);
     }
-    setSubmitted(true);
   };
 
   return (

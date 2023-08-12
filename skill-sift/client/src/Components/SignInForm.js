@@ -1,15 +1,50 @@
 import React, { useState } from 'react';
+import { useMutation, gql } from '@apollo/client';
+
+
+const LOGIN_USER = gql`
+    mutation login($username: String!, $password: String!) {
+        login(username: $username, password: $password) {
+            token
+            user {
+                _id
+                name
+                username
+            }
+        }
+    }
+`;
 
 const SigninForm = () => {
-    const [role, setRole] = useState("user"); // Default to "user"
+    const [role, setRole] = useState("user"); 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState(""); 
+
+    
+    const [loginUser, { loading }] = useMutation(LOGIN_USER, {
+        onError: (error) => {
+            
+            setErrorMessage(error.message);
+        },
+        onCompleted: (data) => {
+            
+            console.log(data.login.token);
+            setEmail("");
+            setPassword("");
+        }
+    });
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        setEmail("");
-        setPassword("");
+       
+        loginUser({
+            variables: {
+                username: email,
+                password: password
+            }
+        });
     };
 
     return (
@@ -36,6 +71,8 @@ const SigninForm = () => {
                 <br />
                 <button type="submit">Sign In</button>
             </form>
+            {loading && <p>Signing in...</p>} 
+            {errorMessage && <p>{errorMessage}</p>}
         </div>
     );
 }
