@@ -8,7 +8,6 @@ const CREATE_PROFESSIONAL = gql`
     createProfessional(name: $name, avatar: $avatar, review: $review, introduction: $introduction, price: $price) {
       id
       name
-      // Add other fields you might want to return after the mutation completes
     }
   }
 `;
