@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import "../styles/signup.css";
+import "../styles/contact.css";
 const ContactForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [message, setMessage] = useState("");
-
+  const [valid, setValid] = useState(false);
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
@@ -24,34 +24,26 @@ const ContactForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    fetch("http://need the server http for the file/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        phoneNumber,
-        message,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    setValid(!valid);
+    setEmail("");
+    setName("");
+    setPhoneNumber("");
+    setMessage("");
   };
 
   return (
-    <div className="form-container">
-      <h1>Contact Us</h1>
-      <form onSubmit={handleSubmit} className="contact-form">
-        <label>
-          Name:
+    <div>
+      {valid && (
+        <div className="success-message">
+          <h3>Thank you {name}</h3>
+          <div>
+            Your message has been received, we will contact you via {email}
+          </div>
+        </div>
+      )}
+
+      <div className="form-container">
+        <form onSubmit={handleSubmit} className="contact-form">
           <input
             type="text"
             placeholder="Your Name"
@@ -60,9 +52,6 @@ const ContactForm = () => {
             onChange={handleNameChange}
             required
           />
-        </label>
-        <label>
-          Email:
           <input
             type="email"
             class="form-field"
@@ -71,9 +60,7 @@ const ContactForm = () => {
             onChange={handleEmailChange}
             required
           />
-        </label>
-        <label>
-          Phone Number:
+
           <input
             type="tel"
             class="form-field"
@@ -82,9 +69,7 @@ const ContactForm = () => {
             onChange={handlePhoneNumberChange}
             required
           />
-        </label>
-        <label>
-          Message:
+
           <textarea
             class="form-field"
             value={message}
@@ -92,11 +77,12 @@ const ContactForm = () => {
             onChange={handleMessageChange}
             required
           />
-        </label>
-        <button class="form-field" type="submit">
-          Send
-        </button>
-      </form>
+
+          <button class="submitBtn" type="submit">
+            Send
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

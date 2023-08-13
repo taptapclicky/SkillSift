@@ -1,28 +1,3 @@
-// import React from "react";
-// import { Link } from "react-router-dom";
-// import "../styles/navbar.css";
-// const Navbar = () => {
-//   return (
-//     <div className="nav">
-//       <nav className="nav-menu">
-//         <div>
-//           <h2>Skill Sift</h2>
-//         </div>
-//         <div>
-//           <input type="text" placeholder="Search..." />
-//         </div>
-//         <div>
-//           <Link to="/about">About</Link>
-//           <Link to="/sign-in">Sign In</Link>
-//           <Link to="/sign-up">Sign Up</Link>
-//         </div>
-//       </nav>
-//     </div>
-//   );
-// };
-
-// export default Navbar;
-
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/navbar.css";
@@ -36,6 +11,7 @@ const Navbar = () => {
               display: "inline-block",
               color: "white",
               fontSize: " 30px",
+              marginBottom: "20px",
             }}
           >
             Skill Sift
@@ -50,6 +26,7 @@ const Navbar = () => {
         <Link to="/sign-in">Login</Link>
         <Link to="/contact">Contact</Link>
         <Link to="/reviews">Reviews</Link>
+        <Link to="/services">Services</Link>
       </div>
     </div>
   );

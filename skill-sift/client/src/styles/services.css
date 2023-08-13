@@ -1,0 +1,12 @@
+.profiles{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 25px;
+    width: 90%;
+    margin: 20px auto
+}
+#profile{
+    text-align: left;
+    font-size: 20px;
+}

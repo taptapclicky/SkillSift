@@ -7,62 +7,77 @@
 } */
 
 .form-container {
-    width: 60%;
-    background-color: white;
-    margin: auto;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-    padding: 10px;
-    background: #76b852;
+  width: 60%;
+  background-color: white;
+  margin: auto;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  padding: 10px;
+  background: #000080;
 }
 
-.register-form, .contact-form, .login-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    padding: 10px;
+.register-form,
+.contact-form,
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 10px;
+  background: #000080;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .success-message {
-    font-family: "Roboto", sans-serif;
-    background-color: #3f89f8;
-    padding: 15px;
-    color: white;
-    text-align: center;
+  font-family: "Roboto", sans-serif;
+  background-color: #000080;
+  padding: 15px;
+  color: white;
+  text-align: center;
 }
 
 .form-field {
-    margin: 10px 0 10px 0;
-    padding: 15px;
-    font-size: 16px;
-    border: 0;
-    font-family: "Roboto", sans-serif;
+  margin: 10px 10px 10px 0;
+  padding: 15px;
+  font-size: 16px;
+  border: 0;
+  font-family: "Roboto", sans-serif;
+}
+.submitBtn {
+  /* width: 40%; */
+  font-size: 22px;
+  margin: 0 auto;
+  color: blue;
+  background-color: white;
+}
+label {
+  color: white;
 }
 
 span {
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
-    color: red;
-    margin-bottom: 15px;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  color: red;
+  margin-bottom: 15px;
 }
 
 input {
-    background: #f2f2f2;
+  background: #f2f2f2;
 }
 
 .error {
-    border-style: solid;
-    border: 2px solid #ffa4a4;
+  border-style: solid;
+  border: 2px solid #ffa4a4;
 }
 
 button {
-    background: #4caf50;
-    color: white;
-    cursor: pointer;
-    /* width: 50%; */
-    /* margin: 0 25%; */
-    font-size: 30px;
+  background: #000080;
+  color: white;
+  cursor: pointer;
+  /* width: 50%; */
+  /* margin: 0 25%; */
+  font-size: 30px;
 }
 
 button:disabled {
-    cursor: default;
+  cursor: default;
 }

@@ -1,0 +1,33 @@
+.hero-images{
+    display: flex;
+    width: 100%
+}
+.hero-images img{
+    width: 50%;
+    height: 300px
+}
+.home-text{
+    line-height: 2.5;
+    font-size: 20px;
+    color: #000080;
+    text-align: left;
+    padding-left: 30px;
+    
+}
+h2{
+    color: #000080;
+    font-size: 22px;  
+}
+#list{
+    color: #000080;
+}
+ul{
+    text-align: left;
+}
+ul li{
+    list-style-type: none;
+    font-size: 20px;
+    line-height: 2.5;
+    text-align: left;
+    /* padding-left: 10px; */
+}

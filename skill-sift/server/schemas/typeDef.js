@@ -1,4 +1,4 @@
-const { gql } = require('graphql');
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
     type User {
@@ -74,4 +74,5 @@ const typeDefs = gql`
         createProfessional(username: String!, name: String!, password: String): Auth
         saveJob()
     }
-    `
+    `;
+module.exports = typeDefs;
